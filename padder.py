@@ -1,15 +1,8 @@
 from math import floor
 from pathlib import Path
-import queue
-import threading
 from PIL import Image, ImageDraw, ImageFont
 import logging
-import os
-import sys
-from datetime import datetime
-from multiprocessing import Pool
-from multiprocessing.connection import Listener
-import copy
+
 
 WHITE = (255,255,255)
 TRANSPARENT = (0,0,0, 0)
