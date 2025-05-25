@@ -5,12 +5,12 @@ import os
 import zipfile
 from datetime import datetime
 import shutil
+import os
 
 app = Flask(__name__)
 
 class UploadedImage():
 	def __init__():
-
 		pass
 
 
@@ -39,9 +39,9 @@ def zipfiles(files):
 	# 	for fp in files:
 	# 		zipf.write("photos/" +fp)
 	tmp_path = (Path("tmp")/ Path(fname))
-	tmp_path.mkdir(exist_ok=True)
+	tmp_path.mkdir(exist_ok=True, parents=True)
 	for fp in files:
 		shutil.copy("photos/" +fp, dst=tmp_path)
-	zname = shutil.make_archive(fname, base_dir=tmp_path, format="zip")
+	zname = shutil.make_archive(tmp_path, base_dir=fname, root_dir="tmp", format="zip")
 	return zname
 	
