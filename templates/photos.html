@@ -2,7 +2,7 @@
 {% macro Photo(src) -%}
 
 <div class="grid-image" id="img-{{ src }}">
-	<img src="image/{{ src }}" onclick="toggleImageState('{{src}}')">
+	<img class="grid-image-img" src="image/{{ src }}" id="{{src}}" draggable="false">
 	<input hidden id="check-{{ src }}" type="checkbox" class="grid-image-checkbox" value="{{ src }}" />
 </div>
 
@@ -30,6 +30,6 @@
 
 	</ul>
 	<script src="{{ url_for('static', filename='main.js') }}">
-		
+
 	</script>
 </body>

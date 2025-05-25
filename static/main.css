@@ -1,21 +1,34 @@
 * {
-  border: 1px red;
+	border: 1px red;
 }
 
 h1 {
-  font-family: 'Courier New', Courier, monospace;
+	font-family: "Courier New", Courier, monospace;
 }
 
 .photo-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	max-width: 100vw;
+	min-width: 80vw;
+	padding: 2%;
+}
+
+#header {
+	position: sticky;
+	top:0;
+}
+
+#header button {
+	width: 100%;
+	font-size: 5em;
 }
 
 .grid-image {
-  aspect-ratio: 1 / 1;
-  max-width: 30vw;
+	aspect-ratio: 1 / 1;
+	/* max-width: 30vw; */
 	padding: 5%;
-  
+	transition: all 50ms;
 }
 
 .grid-image.checked {
@@ -28,4 +41,8 @@ h1 {
 	height: 100%;
 	/* object-fit: cover; */
 	object-fit: contain;
+}
+.grid-image,
+.grid-image * {
+	user-select: none;
 }

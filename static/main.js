@@ -1,16 +1,35 @@
+function updateDisplay(grid_image, next_state) {
+	if (next_state == true) {
+		grid_image.classList.add("checked")
+	} else {
+		grid_image.classList.remove("checked")
+	}
+}
+
+
 function toggleImageState(fp) {
 	checkbox = document.getElementById(`check-${fp}`)
 	grid_image = checkbox.parentElement
 	current_state = checkbox.checked
 	next_state = !current_state
 	checkbox.checked = next_state
-	if (next_state == true) {
-		grid_image.classList.add("checked")
-	} else {
-		grid_image.classList.remove("checked")
-
-	}
+	updateDisplay(grid_image, next_state)
 }
+
+
+function toggleImageStateTouch(event) {
+	grid_image = event.target.parentElement
+	console.log(grid_image.id)
+	checkbox = document.getElementById(`check-${event.target.id}`)
+	console.log(checkbox)
+	current_state = checkbox.checked
+	next_state = !current_state
+	checkbox.checked = next_state
+
+	updateDisplay(grid_image, next_state)
+	event.preventDefault();
+}
+
 
 
 function download_files() {
@@ -57,3 +76,10 @@ function forceDownload(blob) {
 	window.URL.revokeObjectURL(a.href)
 	document.body.removeChild(a)
 }
+
+Array.from(
+	document.getElementsByClassName("grid-image-img")
+).forEach(e => {
+	e.addEventListener("touchstart", toggleImageStateTouch);
+	e.addEventListener("click", toggleImageStateTouch)
+});
