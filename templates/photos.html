@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% macro Photo(src) -%}
+
+<div class="grid-image" id="img-{{ src }}">
+	<img src="image/{{ src }}" onclick="toggleImageState('{{src}}')">
+	<input hidden id="check-{{ src }}" type="checkbox" class="grid-image-checkbox" value="{{ src }}" />
+</div>
+
+{%- endmacro %}
+
+<head>
+	<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+
+
+</head>
+
+<body>
+	<div id="header">
+
+		<button onclick="download_files()">Download files</button>
+	</div>
+	<h1>The files</h1>
+	<div class="photo-grid">
+
+		{% for file in files %}
+		{{ Photo(file) }}
+		{% endfor %}
+	</div>
+	<ul>
+
+	</ul>
+	<script src="{{ url_for('static', filename='main.js') }}">
+		
+	</script>
+</body>

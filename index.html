@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="manifest" href="manifest.json" />
+
+  </head>
+  <body>This is a test PWA
+    <button onclick="btnClick">Increment</button>
+    <p id="count">0</p>
+    <script>
+        var count = 0;
+        function btnClick() {
+            count++;
+            document.getElementById("count").innerText = count;
+        }
+    </script>
+  </body>
+</html>
