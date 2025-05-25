@@ -6,12 +6,11 @@ import zipfile
 from datetime import datetime
 import shutil
 import os
+from padder import pad_file
+
 
 app = Flask(__name__)
 
-class UploadedImage():
-	def __init__():
-		pass
 
 
 @app.route("/image/<fp>")
@@ -20,7 +19,7 @@ def get_image(fp):
 
 @app.route("/")
 def hello_world():
-	files = [Path(f).relative_to("photos") for f in glob.glob("photos/*.jpg")]
+	files = sorted([Path(f).relative_to("photos") for f in glob.glob("photos/*.jpg")], reverse=True)
 
 	return render_template('photos.html', files=files)
 
@@ -28,20 +27,21 @@ def hello_world():
 @app.route("/download", methods=['POST'])
 def download():
 	request_data = request.get_json()
+	files = request_data['files']
 	print(request_data)
-	# TODO: pad each file
-	fname = zipfiles(request_data['files'])
-	return send_file(fname)
 
-def zipfiles(files):
 	fname = f"download-{datetime.today().strftime('%Y-%m-%d %H-%M-%S')}"
-	# with zipfile.ZipFile(fname, mode="w") as zipf:
-	# 	for fp in files:
-	# 		zipf.write("photos/" +fp)
 	tmp_path = (Path("tmp")/ Path(fname))
-	tmp_path.mkdir(exist_ok=True, parents=True)
+	originals = tmp_path/"originals"
+	padded = tmp_path/"padded"
+	originals.mkdir(exist_ok=True, parents=True)
+	padded.mkdir(exist_ok=True, parents=True)
 	for fp in files:
-		shutil.copy("photos/" +fp, dst=tmp_path)
+		path = Path("photos/" +fp)
+		shutil.copy(path, dst=originals)
+		pad_file(path, padded/fp)
 	zname = shutil.make_archive(tmp_path, base_dir=fname, root_dir="tmp", format="zip")
-	return zname
+
+	return send_file(zname)
+
 	

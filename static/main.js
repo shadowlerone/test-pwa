@@ -33,6 +33,8 @@ function toggleImageStateTouch(event) {
 
 
 function download_files() {
+	download_button = document.getElementById("download-button")
+	download_button.disabled = true;
 	let files =
 		Array.from(document.getElementsByClassName('grid-image-checkbox'))
 			.filter(e => e.checked)
@@ -58,6 +60,7 @@ function download_files() {
 					}
 				)
 			} else {
+				download_button.disabled = false;
 				throw new Error("An error occurred while generating the plugin")
 			}
 		}
@@ -75,6 +78,8 @@ function forceDownload(blob) {
 	a.click()
 	window.URL.revokeObjectURL(a.href)
 	document.body.removeChild(a)
+	download_button.disabled = false;
+
 }
 
 Array.from(
